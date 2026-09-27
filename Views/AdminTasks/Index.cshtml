@@ -1,0 +1,239 @@
+﻿@model IEnumerable<SmartStudyPlannerSystem.Models.Task>
+
+@{
+    ViewData["Title"] = "Task Management";
+}
+
+<div class="admin-tasks-page">
+
+    <!-- PAGE HEADER -->
+    <div class="admin-list-header">
+
+        <div>
+            <span class="admin-badge">TASK MANAGEMENT</span>
+
+            <h1>All Student Tasks</h1>
+
+            <p>
+                View and monitor tasks created by all students.
+            </p>
+        </div>
+
+        <div class="student-count-box">
+            <strong>@Model.Count()</strong>
+
+            <span>
+                @(Model.Count() == 1 ? "Task" : "Tasks")
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- ERROR MESSAGE -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="admin-alert">
+            <span>!</span>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+
+    @if (Model != null && Model.Any())
+    {
+        <!-- TASK TABLE -->
+
+        <div class="admin-table-card">
+
+            <div class="admin-table-header">
+
+                <div>
+                    <h2>Student Task Overview</h2>
+
+                    <p>
+                        Monitor task deadlines, priorities and completion status.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-tasks-table">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Task</th>
+                            <th>Student</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                        @foreach (var task in Model)
+                        {
+                            var statusClass =
+                                task.Status.Equals(
+                                    "Completed",
+                                    StringComparison.OrdinalIgnoreCase)
+                                    ? "admin-status-completed"
+                                    : task.Status.Equals(
+                                        "In Progress",
+                                        StringComparison.OrdinalIgnoreCase)
+                                        ? "admin-status-progress"
+                                        : "admin-status-pending";
+
+
+                            var priorityClass =
+                                task.Priority.Equals(
+                                    "High",
+                                    StringComparison.OrdinalIgnoreCase)
+                                    ? "admin-priority-high"
+                                    : task.Priority.Equals(
+                                        "Low",
+                                        StringComparison.OrdinalIgnoreCase)
+                                        ? "admin-priority-low"
+                                        : "admin-priority-medium";
+
+
+                            <tr>
+
+                                <!-- ID -->
+                                <td>
+                                    <span class="student-id">
+                                        #@task.TaskId
+                                    </span>
+                                </td>
+
+
+                                <!-- TASK -->
+                                <td>
+
+                                    <div class="admin-task-info">
+
+                                        <div class="admin-task-icon">
+                                            ✓
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                @task.TaskTitle
+                                            </strong>
+
+                                            <span>
+                                                @task.Subject
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- STUDENT -->
+                                <td>
+
+                                    <span class="admin-user-badge">
+                                        User #@task.UserId
+                                    </span>
+
+                                </td>
+
+
+                                <!-- DUE DATE -->
+                                <td>
+
+                                    <div class="admin-due-date">
+
+                                        <span>📅</span>
+
+                                        <span>
+                                            @task.DueDate.ToString("dd MMM yyyy")
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- STATUS -->
+                                <td>
+
+                                    <span class="admin-task-status @statusClass">
+
+                                        @if (task.Status.Equals(
+                                            "Completed",
+                                            StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <span>✓</span>
+                                        }
+                                        else if (task.Status.Equals(
+                                            "In Progress",
+                                            StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <span>◷</span>
+                                        }
+                                        else
+                                        {
+                                            <span>○</span>
+                                        }
+
+                                        <span>
+                                            @task.Status
+                                        </span>
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- PRIORITY -->
+                                <td>
+
+                                    <span class="admin-task-priority @priorityClass">
+                                        @task.Priority
+                                    </span>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <!-- EMPTY STATE -->
+
+        <div class="admin-empty-state">
+
+            <div class="admin-empty-icon">
+                ✓
+            </div>
+
+            <h2>No Student Tasks Found</h2>
+
+            <p>
+                There are currently no tasks created by students
+                in the system.
+            </p>
+
+        </div>
+    }
+
+</div>

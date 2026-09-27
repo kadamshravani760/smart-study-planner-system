@@ -1,0 +1,199 @@
+﻿@model SmartStudyPlannerSystem.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="page-header compact">
+
+    <div>
+        <div class="eyebrow">YOUR STUDY SPACE</div>
+
+        <h1>
+            Hello, @Model.UserName 👋
+        </h1>
+
+        <p>
+            Here is your current study overview.
+        </p>
+    </div>
+
+    <a class="btn btn-primary"
+       asp-controller="StudyPlans"
+       asp-action="Create">
+        + Add Study Plan
+    </a>
+
+</section>
+
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-error">
+        @error
+    </div>
+}
+
+<!-- =========================
+     STATISTICS
+     ========================= -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <span>📅</span>
+        <strong>@Model.StudyPlanCount</strong>
+        <small>Study Plans</small>
+    </div>
+
+    <div class="stat-card">
+        <span>📝</span>
+        <strong>@Model.TaskCount</strong>
+        <small>Total Tasks</small>
+    </div>
+
+    <div class="stat-card">
+        <span>✅</span>
+        <strong>@Model.CompletedTaskCount</strong>
+        <small>Completed</small>
+    </div>
+
+    <div class="stat-card">
+        <span>⏳</span>
+        <strong>@Model.PendingTaskCount</strong>
+        <small>Pending</small>
+    </div>
+
+</div>
+
+<!-- =========================
+     DASHBOARD CONTENT
+     ========================= -->
+
+<div class="dashboard-grid">
+
+    <!-- PROGRESS -->
+
+    <div class="panel">
+
+        <div class="panel-head">
+
+            <h2>Overall Progress</h2>
+
+            <strong>
+                @Model.ProgressPercent%
+            </strong>
+
+        </div>
+
+        <div class="progress large">
+
+            <span style="width:@Model.ProgressPercent%"></span>
+
+        </div>
+
+        <p class="muted">
+            Progress is calculated from your completed study tasks.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+     QUICK ACTIONS
+     ========================================================= -->
+
+    <section class="quick-actions-section">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">GET STARTED</span>
+                <h2>Quick Actions</h2>
+                <p>Access your study tools quickly.</p>
+            </div>
+        </div>
+
+
+        <div class="quick-actions-grid">
+
+            <!-- Study Plans -->
+            <a asp-controller="StudyPlans"
+               asp-action="Index"
+               class="quick-action-card">
+
+                <div class="quick-action-icon">
+                    📅
+                </div>
+
+                <div class="quick-action-content">
+                    <h3>Study Plans</h3>
+                    <p>View and manage your study plans.</p>
+                </div>
+
+                <span class="quick-action-arrow">→</span>
+
+            </a>
+
+
+            <!-- Tasks -->
+            <a asp-controller="Tasks"
+               asp-action="Index"
+               class="quick-action-card">
+
+                <div class="quick-action-icon">
+                    ✅
+                </div>
+
+                <div class="quick-action-content">
+                    <h3>Manage Tasks</h3>
+                    <p>Track your pending and completed tasks.</p>
+                </div>
+
+                <span class="quick-action-arrow">→</span>
+
+            </a>
+
+
+            <!-- Create Study Plan -->
+            <a asp-controller="StudyPlans"
+               asp-action="Create"
+               class="quick-action-card">
+
+                <div class="quick-action-icon">
+                    ＋
+                </div>
+
+                <div class="quick-action-content">
+                    <h3>Create New Plan</h3>
+                    <p>Build a new personalized study plan.</p>
+                </div>
+
+                <span class="quick-action-arrow">→</span>
+
+            </a>
+
+
+            <!-- Reminders -->
+            <a asp-controller="Reminders"
+               asp-action="Index"
+               class="quick-action-card reminder-action">
+
+                <div class="quick-action-icon reminder-icon">
+                    🔔
+                </div>
+
+                <div class="quick-action-content">
+                    <h3>Reminders</h3>
+                    <p>Stay updated with upcoming deadlines.</p>
+                </div>
+
+                <span class="quick-action-arrow">→</span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    </div>
+
+</div>

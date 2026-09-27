@@ -1,0 +1,201 @@
+﻿@model IEnumerable<SmartStudyPlannerSystem.Models.Task>
+
+@{
+    ViewData["Title"] = "My Tasks";
+}
+
+<div class="tasks-page">
+
+    <div class="tasks-header">
+
+        <div>
+            <span class="page-badge">TASK MANAGER</span>
+
+            <h1>My Tasks</h1>
+
+            <p>
+                Manage your study tasks, priorities and deadlines in one place.
+            </p>
+        </div>
+
+        <a asp-controller="Tasks"
+           asp-action="Create"
+           class="btn primary-btn">
+            + Add New Task
+        </a>
+
+    </div>
+
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert success-alert">
+            <span>✓</span>
+            <div>@TempData["Success"]</div>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert error-alert">
+            <span>!</span>
+            <div>@TempData["Error"]</div>
+        </div>
+    }
+
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="task-summary">
+            <strong>@Model.Count()</strong>
+
+            <span>
+                @(Model.Count() == 1 ? "Task" : "Tasks")
+            </span>
+        </div>
+
+
+        <div class="tasks-grid">
+
+            @foreach (var task in Model)
+            {
+                var statusClass =
+                    task.Status.Equals(
+                        "Completed",
+                        StringComparison.OrdinalIgnoreCase)
+                        ? "status-completed"
+                        : "status-pending";
+
+                var priorityClass =
+                    task.Priority.Equals(
+                        "High",
+                        StringComparison.OrdinalIgnoreCase)
+                        ? "priority-high"
+                        : task.Priority.Equals(
+                            "Low",
+                            StringComparison.OrdinalIgnoreCase)
+                            ? "priority-low"
+                            : "priority-medium";
+
+
+                <article class="task-card">
+
+                    <div class="task-card-top">
+
+                        <div class="task-icon">
+                            ✓
+                        </div>
+
+                        <span class="priority-badge @priorityClass">
+                            @task.Priority
+                        </span>
+
+                    </div>
+
+
+                    <div class="task-content">
+
+                        <h2>
+                            @task.TaskTitle
+                        </h2>
+
+
+                        @if (!string.IsNullOrWhiteSpace(task.Subject))
+                        {
+                            <div class="task-subject">
+                                <span>📘</span>
+                                @task.Subject
+                            </div>
+                        }
+
+
+                        <div class="task-due-date">
+                            <span>📅</span>
+
+                            <span>
+                                Due:
+                                <strong>
+                                    @task.DueDate.ToString("dd MMM yyyy")
+                                </strong>
+                            </span>
+                        </div>
+
+
+                        <div class="task-status @statusClass">
+
+                            @if (task.Status.Equals(
+                                "Completed",
+                                StringComparison.OrdinalIgnoreCase))
+                            {
+                                <span>✓</span>
+                                <span>Completed</span>
+                            }
+                            else
+                            {
+                                <span>◷</span>
+                                <span>@task.Status</span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="task-card-footer">
+
+                        <a asp-controller="Tasks"
+                           asp-action="Edit"
+                           asp-route-id="@task.TaskId"
+                           class="task-action edit-task">
+                            ✏ Edit
+                        </a>
+
+
+                        <form asp-controller="Tasks"
+                              asp-action="Delete"
+                              asp-route-id="@task.TaskId"
+                              method="post"
+                              class="delete-task-form"
+                              onsubmit="return confirm('Are you sure you want to delete this task?');">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit"
+                                    class="task-action delete-task">
+                                🗑 Delete
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </article>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="empty-tasks">
+
+            <div class="empty-task-icon">
+                ✓
+            </div>
+
+            <h2>No Tasks Yet</h2>
+
+            <p>
+                You haven't added any study tasks yet.
+                Create your first task and start managing your study schedule.
+            </p>
+
+            <a asp-controller="Tasks"
+               asp-action="Create"
+               class="btn primary-btn">
+                + Create Your First Task
+            </a>
+
+        </div>
+    }
+
+</div>

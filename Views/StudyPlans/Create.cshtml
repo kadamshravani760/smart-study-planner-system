@@ -1,0 +1,196 @@
+﻿@model SmartStudyPlannerSystem.Models.StudyPlan
+
+@{
+    ViewData["Title"] = "Create Study Plan";
+}
+
+<div class="form-page studyplan-form-page">
+
+    <div class="form-card studyplan-form-card">
+
+        <div class="form-header">
+
+            <div class="form-icon">
+                📚
+            </div>
+
+            <div>
+                <h1>Create Study Plan</h1>
+
+                <p>
+                    Create a focused study session and organize your learning.
+                </p>
+            </div>
+
+        </div>
+
+        <form asp-controller="StudyPlans"
+              asp-action="Create"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-summary"></div>
+
+            <div class="form-grid">
+
+                <!-- Title -->
+                <div class="form-group full-width">
+
+                    <label asp-for="Title">
+                        Study Plan Title
+                    </label>
+
+                    <input asp-for="Title"
+                           class="form-control"
+                           placeholder="e.g. Mathematics Revision"
+                           autocomplete="off" />
+
+                    <span asp-validation-for="Title"
+                          class="field-error"></span>
+
+                </div>
+
+                <!-- Subject -->
+                <div class="form-group">
+
+                    <label asp-for="Subject">
+                        Subject
+                    </label>
+
+                    <input asp-for="Subject"
+                           class="form-control"
+                           placeholder="e.g. Mathematics"
+                           autocomplete="off" />
+
+                    <span asp-validation-for="Subject"
+                          class="field-error"></span>
+
+                </div>
+
+                <!-- Topic -->
+                <div class="form-group">
+
+                    <label asp-for="Topic">
+                        Topic
+                    </label>
+
+                    <input asp-for="Topic"
+                           class="form-control"
+                           placeholder="e.g. Algebra"
+                           autocomplete="off" />
+
+                    <span asp-validation-for="Topic"
+                          class="field-error"></span>
+
+                </div>
+
+                <!-- Date -->
+                <div class="form-group">
+
+                    <label asp-for="StudyDate">
+                        Study Date
+                    </label>
+
+                    <input asp-for="StudyDate"
+                           class="form-control"
+                           type="date" />
+
+                    <span asp-validation-for="StudyDate"
+                          class="field-error"></span>
+
+                </div>
+
+                <!-- Start Time -->
+                <div class="form-group">
+
+                    <label asp-for="StartTime">
+                        Start Time
+                    </label>
+
+                    <input asp-for="StartTime"
+                           class="form-control"
+                           type="time" />
+
+                    <span asp-validation-for="StartTime"
+                          class="field-error"></span>
+
+                </div>
+
+                <!-- End Time -->
+                <div class="form-group">
+
+                    <label asp-for="EndTime">
+                        End Time
+                    </label>
+
+                    <input asp-for="EndTime"
+                           class="form-control"
+                           type="time" />
+
+                    <span asp-validation-for="EndTime"
+                          class="field-error"></span>
+
+                </div>
+
+                <!-- Description -->
+                <div class="form-group full-width">
+
+                    <label asp-for="Description">
+                        Description
+                    </label>
+
+                    <textarea asp-for="Description"
+                              class="form-control textarea-control"
+                              rows="4"
+                              placeholder="Describe what you want to study in this session..."></textarea>
+
+                    <span asp-validation-for="Description"
+                          class="field-error"></span>
+
+                </div>
+
+                <!-- Notes -->
+                <div class="form-group full-width">
+
+                    <label asp-for="Notes">
+                        Notes
+                    </label>
+
+                    <textarea asp-for="Notes"
+                              class="form-control textarea-control"
+                              rows="3"
+                              placeholder="Add any important notes or reminders..."></textarea>
+
+                    <span asp-validation-for="Notes"
+                          class="field-error"></span>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a asp-controller="StudyPlans"
+                   asp-action="Index"
+                   class="btn secondary-btn">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn primary-btn">
+                    ✓ Create Study Plan
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

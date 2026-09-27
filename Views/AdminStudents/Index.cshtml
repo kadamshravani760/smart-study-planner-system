@@ -1,0 +1,160 @@
+﻿@model IEnumerable<SmartStudyPlannerSystem.Models.User>
+
+@{
+    ViewData["Title"] = "Student Management";
+}
+
+<div class="admin-students-page">
+
+    <!-- PAGE HEADER -->
+    <div class="admin-list-header">
+
+        <div>
+            <span class="admin-badge">STUDENT MANAGEMENT</span>
+
+            <h1>Registered Students</h1>
+
+            <p>
+                View and manage students registered in the Smart Study Planner System.
+            </p>
+        </div>
+
+        <div class="student-count-box">
+            <strong>@Model.Count()</strong>
+            <span>@(Model.Count() == 1 ? "Student" : "Students")</span>
+        </div>
+
+    </div>
+
+
+    <!-- ERROR MESSAGE -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="admin-alert">
+            <span>!</span>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+
+    <!-- STUDENTS TABLE -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="admin-table-card">
+
+            <div class="admin-table-header">
+
+                <div>
+                    <h2>All Students</h2>
+                    <p>Registered student accounts in the system.</p>
+                </div>
+
+            </div>
+
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-students-table">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student</th>
+                            <th>Email Address</th>
+                            <th>User Type</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                        @foreach (var student in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <span class="student-id">
+                                        #@student.UserId
+                                    </span>
+                                </td>
+
+
+                                <td>
+
+                                    <div class="student-info">
+
+                                        <div class="student-avatar">
+                                            @student.FullName.Substring(
+                                                0,
+                                                1
+                                            ).ToUpper()
+                                        </div>
+
+                                        <div>
+                                            <strong>
+                                                @student.FullName
+                                            </strong>
+
+                                            <span>
+                                                Student Account
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    <span class="student-email">
+                                        @student.Email
+                                    </span>
+                                </td>
+
+
+                                <td>
+                                    <span class="user-type-badge">
+                                        @student.UserType
+                                    </span>
+                                </td>
+
+
+                                <td>
+                                    <span class="role-badge">
+                                        @student.Role
+                                    </span>
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <!-- EMPTY STATE -->
+
+        <div class="admin-empty-state">
+
+            <div class="admin-empty-icon">
+                👨‍🎓
+            </div>
+
+            <h2>No Students Registered</h2>
+
+            <p>
+                There are currently no student accounts registered
+                in the system.
+            </p>
+
+        </div>
+    }
+
+</div>

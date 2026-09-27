@@ -1,0 +1,179 @@
+﻿@model IEnumerable<SmartStudyPlannerSystem.Models.StudyPlan>
+
+@{
+    ViewData["Title"] = "My Study Plans";
+}
+
+<div class="studyplans-page">
+
+    <div class="studyplans-header">
+        <div>
+            <span class="page-badge">STUDY PLANNER</span>
+
+            <h1>My Study Plans</h1>
+
+            <p>
+                Plan your study sessions, organize subjects and stay on track.
+            </p>
+        </div>
+
+        <a asp-controller="StudyPlans"
+           asp-action="Create"
+           class="btn primary-btn">
+            + Create Study Plan
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert success-alert">
+            <span>✓</span>
+            <div>@TempData["Success"]</div>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert error-alert">
+            <span>!</span>
+            <div>@TempData["Error"]</div>
+        </div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="plan-count">
+            <strong>@Model.Count()</strong>
+            <span>
+                @(Model.Count() == 1 ? "Study Plan" : "Study Plans")
+            </span>
+        </div>
+
+        <div class="studyplans-grid">
+
+            @foreach (var plan in Model)
+            {
+                <article class="studyplan-card">
+
+                    <div class="plan-card-top">
+
+                        <div class="plan-icon">
+                            📚
+                        </div>
+
+                        <div class="plan-date">
+                            <span>@plan.StudyDate.ToString("MMM")</span>
+                            <strong>@plan.StudyDate.Day</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="plan-content">
+
+                        <h2>@plan.Title</h2>
+
+                        @if (!string.IsNullOrWhiteSpace(plan.Subject))
+                        {
+                            <div class="plan-subject">
+                                <span>📘</span>
+                                @plan.Subject
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(plan.Topic))
+                        {
+                            <div class="plan-topic">
+                                Topic: @plan.Topic
+                            </div>
+                        }
+
+                        @if (plan.StartTime.HasValue || plan.EndTime.HasValue)
+                        {
+                            <div class="plan-time">
+
+                                <span>🕒</span>
+
+                                @if (plan.StartTime.HasValue)
+                                {
+                                    @plan.StartTime.Value.ToString(@"hh\:mm")
+                                }
+
+                                @if (plan.StartTime.HasValue && plan.EndTime.HasValue)
+                                {
+                                    <span> - </span>
+                                }
+
+                                @if (plan.EndTime.HasValue)
+                                {
+                                    @plan.EndTime.Value.ToString(@"hh\:mm")
+                                }
+
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(plan.Description))
+                        {
+                            <p class="plan-description">
+                                @plan.Description
+                            </p>
+                        }
+
+                    </div>
+
+                    <div class="plan-card-footer">
+
+                        <a asp-controller="StudyPlans"
+                           asp-action="Edit"
+                           asp-route-id="@plan.StudyPlanId"
+                           class="plan-action edit-action">
+                            ✏ Edit
+                        </a>
+
+                        <form asp-controller="StudyPlans"
+                              asp-action="Delete"
+                              asp-route-id="@plan.StudyPlanId"
+                              method="post"
+                              class="delete-form"
+                              onsubmit="return confirm('Are you sure you want to delete this study plan?');">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit"
+                                    class="plan-action delete-action">
+                                🗑 Delete
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </article>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="empty-plans">
+
+            <div class="empty-icon">
+                📚
+            </div>
+
+            <h2>No Study Plans Yet</h2>
+
+            <p>
+                Start organizing your learning journey by creating
+                your first study plan.
+            </p>
+
+            <a asp-controller="StudyPlans"
+               asp-action="Create"
+               class="btn primary-btn">
+                + Create Your First Plan
+            </a>
+
+        </div>
+    }
+
+</div>

@@ -1,0 +1,264 @@
+﻿@model SmartStudyPlannerSystem.Models.ReminderViewModel
+
+@{
+    ViewData["Title"] = "Reminders";
+}
+
+<div class="reminders-page">
+
+    <!-- Header -->
+    <div class="reminders-header">
+
+        <div>
+            <span class="page-badge reminder-badge">
+                REMINDER CENTER
+            </span>
+
+            <h1>Reminders</h1>
+
+            <p>
+                Stay on top of your upcoming study plans and tasks.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Error -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="reminder-alert">
+            <span>!</span>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+
+    <!-- Reminder Overview -->
+    <div class="reminder-overview">
+
+        <div class="reminder-overview-card">
+            <div class="overview-icon">🔔</div>
+
+            <div>
+                <strong>
+                    @(Model.UpcomingTasks.Count +
+                      Model.UpcomingPlans.Count)
+                </strong>
+
+                <span>Upcoming Reminders</span>
+            </div>
+        </div>
+
+
+        <div class="reminder-overview-card">
+            <div class="overview-icon task-overview-icon">✅</div>
+
+            <div>
+                <strong>@Model.UpcomingTasks.Count</strong>
+                <span>Pending Tasks</span>
+            </div>
+        </div>
+
+
+        <div class="reminder-overview-card">
+            <div class="overview-icon plan-overview-icon">📅</div>
+
+            <div>
+                <strong>@Model.UpcomingPlans.Count</strong>
+                <span>Upcoming Plans</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Upcoming Tasks -->
+    <section class="reminder-section">
+
+        <div class="reminder-section-header">
+
+            <div>
+                <span class="section-label">
+                    TASK DEADLINES
+                </span>
+
+                <h2>Upcoming Tasks</h2>
+            </div>
+
+            <a asp-controller="Tasks"
+               asp-action="Index"
+               class="reminder-view-all">
+                View Tasks →
+            </a>
+
+        </div>
+
+
+        @if (Model.UpcomingTasks.Any())
+        {
+            <div class="reminder-list">
+
+                @foreach (var task in Model.UpcomingTasks)
+                {
+                    var priorityClass =
+                        task.Priority.Equals(
+                            "High",
+                            StringComparison.OrdinalIgnoreCase)
+                            ? "reminder-high"
+                            : task.Priority.Equals(
+                                "Low",
+                                StringComparison.OrdinalIgnoreCase)
+                                ? "reminder-low"
+                                : "reminder-medium";
+
+                    <article class="reminder-card">
+
+                        <div class="reminder-card-icon">
+                            ✅
+                        </div>
+
+                        <div class="reminder-card-content">
+
+                            <h3>
+                                @task.TaskTitle
+                            </h3>
+
+                            <p>
+                                📘 @task.Subject
+                            </p>
+
+                        </div>
+
+                        <div class="reminder-card-meta">
+
+                            <span class="reminder-priority @priorityClass">
+                                @task.Priority
+                            </span>
+
+                            <strong>
+                                📅 @task.DueDate.ToString("dd MMM yyyy")
+                            </strong>
+
+                        </div>
+
+                    </article>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="no-reminders">
+                <div>✓</div>
+                <h3>No Pending Tasks</h3>
+                <p>
+                    You are all caught up with your tasks.
+                </p>
+            </div>
+        }
+
+    </section>
+
+
+    <!-- Upcoming Study Plans -->
+    <section class="reminder-section">
+
+        <div class="reminder-section-header">
+
+            <div>
+                <span class="section-label">
+                    STUDY SCHEDULE
+                </span>
+
+                <h2>Upcoming Study Plans</h2>
+            </div>
+
+            <a asp-controller="StudyPlans"
+               asp-action="Index"
+               class="reminder-view-all">
+                View Plans →
+            </a>
+
+        </div>
+
+
+        @if (Model.UpcomingPlans.Any())
+        {
+            <div class="reminder-list">
+
+                @foreach (var plan in Model.UpcomingPlans)
+                {
+                    <article class="reminder-card plan-reminder-card">
+
+                        <div class="reminder-card-icon plan-reminder-icon">
+                            📅
+                        </div>
+
+                        <div class="reminder-card-content">
+
+                            <h3>
+                                @plan.Title
+                            </h3>
+
+                            <p>
+                                📘 @plan.Subject
+
+                                @if (!string.IsNullOrWhiteSpace(plan.Topic))
+                                {
+                                    <span> • @plan.Topic</span>
+                                }
+                            </p>
+
+                        </div>
+
+                        <div class="reminder-card-meta">
+
+                            <span class="plan-date-label">
+                                Study Date
+                            </span>
+
+                            <strong>
+                                @plan.StudyDate.ToString("dd MMM yyyy")
+                            </strong>
+
+                            @if (plan.StartTime.HasValue &&
+                                 plan.EndTime.HasValue)
+                            {
+                                <small>
+                                    ⏰
+                                    @plan.StartTime.Value.ToString(@"hh\:mm")
+                                    -
+                                    @plan.EndTime.Value.ToString(@"hh\:mm")
+                                </small>
+                            }
+
+                        </div>
+
+                    </article>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="no-reminders">
+                <div>📅</div>
+
+                <h3>No Upcoming Study Plans</h3>
+
+                <p>
+                    Create a study plan to see your upcoming schedule here.
+                </p>
+
+                <a asp-controller="StudyPlans"
+                   asp-action="Create"
+                   class="btn primary-btn">
+                    + Create Study Plan
+                </a>
+            </div>
+        }
+
+    </section>
+
+</div>

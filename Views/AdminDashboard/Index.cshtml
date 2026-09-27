@@ -1,0 +1,253 @@
+﻿@model SmartStudyPlannerSystem.Models.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="admin-dashboard-page">
+
+    <!-- Header -->
+    <div class="admin-dashboard-header">
+
+        <div>
+            <span class="admin-badge">
+                ADMIN PANEL
+            </span>
+
+            <h1>Admin Dashboard</h1>
+
+            <p>
+                Manage students, study plans and tasks from one place.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Error -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="admin-alert">
+            <span>!</span>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+
+    <!-- Statistics -->
+    <div class="admin-stats-grid">
+
+        <!-- Students -->
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon student-icon">
+                👨‍🎓
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span>Total Students</span>
+
+                <strong>
+                    @Model.TotalStudents
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Study Plans -->
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon plan-icon">
+                📅
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span>Total Study Plans</span>
+
+                <strong>
+                    @Model.TotalStudyPlans
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Tasks -->
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon task-icon">
+                ✓
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span>Total Tasks</span>
+
+                <strong>
+                    @Model.TotalTasks
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Completed -->
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon completed-icon">
+                ✓
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span>Completed Tasks</span>
+
+                <strong>
+                    @Model.CompletedTasks
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Pending -->
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon pending-icon">
+                ◷
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span>Pending Tasks</span>
+
+                <strong>
+                    @Model.PendingTasks
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Management -->
+    <section class="admin-management-section">
+
+        <div class="admin-section-heading">
+
+            <div>
+                <span>MANAGEMENT</span>
+
+                <h2>System Management</h2>
+
+                <p>
+                    Access and manage the major areas of the system.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="admin-management-grid">
+
+            <!-- Students -->
+            <a asp-controller="AdminStudents"
+               asp-action="Index"
+               class="admin-management-card">
+
+                <div class="management-icon">
+                    👨‍🎓
+                </div>
+
+                <div>
+                    <h3>Students</h3>
+
+                    <p>
+                        View and manage registered students.
+                    </p>
+                </div>
+
+                <span>→</span>
+
+            </a>
+
+
+            <!-- Study Plans -->
+            <a asp-controller="AdminStudyPlans"
+               asp-action="Index"
+               class="admin-management-card">
+
+                <div class="management-icon">
+                    📚
+                </div>
+
+                <div>
+                    <h3>Study Plans</h3>
+
+                    <p>
+                        Manage study plans created by students.
+                    </p>
+                </div>
+
+                <span>→</span>
+
+            </a>
+
+
+            <!-- Tasks -->
+            <a asp-controller="AdminTasks"
+               asp-action="Index"
+               class="admin-management-card">
+
+                <div class="management-icon">
+                    ✅
+                </div>
+
+                <div>
+                    <h3>Tasks</h3>
+
+                    <p>
+                        View and manage all student tasks.
+                    </p>
+                </div>
+
+                <span>→</span>
+
+            </a>
+
+
+            <!-- Reminders -->
+            <a asp-controller="Reminders"
+               asp-action="Index"
+               class="admin-management-card">
+
+                <div class="management-icon reminder-management-icon">
+                    🔔
+                </div>
+
+                <div>
+                    <h3>Reminders</h3>
+
+                    <p>
+                        View upcoming tasks and study schedules.
+                    </p>
+                </div>
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+</div>

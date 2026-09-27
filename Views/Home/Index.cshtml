@@ -1,0 +1,309 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="home-page">
+
+  
+    <section class="home-hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                ✦ SMART PLANNING • BETTER LEARNING
+            </div>
+
+            <h1>
+                Transform Your
+                <span>Study Routine</span>
+                Achieve Your Goals
+            </h1>
+
+            <p class="hero-description">
+                SmartStudyPlannerSystem helps students plan, organize and
+                track their studies effectively. Manage study plans, tasks,
+                reminders and progress — all in one place.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a asp-controller="Account"
+                   asp-action="Register"
+                   class="hero-primary">
+                    Start Planning
+                    <span>→</span>
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="Features"
+                   class="hero-secondary">
+                    Explore Features
+                </a>
+
+            </div>
+
+            <div class="home-login-options">
+
+                <div class="home-login-buttons">
+
+                    <a asp-controller="Account"
+                       asp-action="Login"
+                       class="home-login-btn student-login-btn">
+                        <span>👨‍🎓</span>
+                        <span>Student Login</span>
+                    </a>
+
+                    <a asp-controller="Account"
+                       asp-action="AdminLogin"
+                       class="home-login-btn admin-login-btn">
+                        <span>🛡️</span>
+                        <span>Admin Login</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="student-trust">
+
+                <div class="trust-icons">
+                    <span>👩🏻‍🎓</span>
+                    <span>👨🏻‍🎓</span>
+                    <span>👩🏻‍💻</span>
+                    <span>👨🏻‍💻</span>
+                </div>
+
+                <div>
+                    <strong>Trusted by students</strong>
+                    <small>Stay organized and productive</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFESSIONAL STUDY VISUAL -->
+
+        <div class="study-visual">
+
+            <div class="study-glow"></div>
+
+            <div class="study-laptop">
+
+                <div class="laptop-screen">
+
+                    <div class="laptop-header">
+                        <span>SMART STUDY PLANNER</span>
+                        <span class="status-dot"></span>
+                    </div>
+
+                    <div class="planner-content">
+
+                        <div class="planner-card">
+
+                            <div class="planner-icon purple">
+                                📚
+                            </div>
+
+                            <div>
+                                <small>Study Plans</small>
+                                <strong>12 Active Plans</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="planner-card">
+
+                            <div class="planner-icon blue">
+                                ✓
+                            </div>
+
+                            <div>
+                                <small>Tasks Completed</small>
+                                <strong>24 Tasks</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="planner-progress">
+
+                            <div class="progress-heading">
+                                <span>Weekly Progress</span>
+                                <strong>82%</strong>
+                            </div>
+
+                            <div class="progress-track">
+                                <div class="progress-fill"></div>
+                            </div>
+
+                            <div class="week-days">
+                                <span>M</span>
+                                <span>T</span>
+                                <span>W</span>
+                                <span>T</span>
+                                <span>F</span>
+                                <span>S</span>
+                                <span>S</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="laptop-base"></div>
+
+            </div>
+
+
+            <!-- BOOKS -->
+
+            <div class="visual-book book-purple">
+                📘
+            </div>
+
+            <div class="visual-book book-blue">
+                📕
+            </div>
+
+
+            <!-- NOTEBOOK -->
+
+            <div class="visual-notebook">
+
+                <strong>TODAY'S PLAN</strong>
+
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+
+            <!-- FLOATING ICONS -->
+
+            <div class="visual-icon icon-check">
+                ✓
+            </div>
+
+            <div class="visual-icon icon-calendar">
+                📅
+            </div>
+
+            <div class="visual-icon icon-target">
+                🎯
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES PREVIEW -->
+
+    <section class="home-features">
+
+        <div class="feature-box">
+
+            <div class="feature-icon purple-icon">
+                📅
+            </div>
+
+            <h3>Smart Study Plans</h3>
+
+            <p>
+                Create personalized study plans with subjects,
+                topics, dates and study timings.
+            </p>
+
+        </div>
+
+
+        <div class="feature-box">
+
+            <div class="feature-icon green-icon">
+                ✓
+            </div>
+
+            <h3>Task Management</h3>
+
+            <p>
+                Add tasks, set priorities and track your daily
+                academic activities easily.
+            </p>
+
+        </div>
+
+
+        <div class="feature-box">
+
+            <div class="feature-icon orange-icon">
+                🔔
+            </div>
+
+            <h3>Smart Reminders</h3>
+
+            <p>
+                Stay updated with assignments, exams and
+                important study activities.
+            </p>
+
+        </div>
+
+
+        <div class="feature-box">
+
+            <div class="feature-icon blue-icon">
+                📊
+            </div>
+
+            <h3>Progress Tracking</h3>
+
+            <p>
+                Monitor completed and pending tasks through
+                your personal dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="feature-box">
+
+            <div class="feature-icon pink-icon">
+                📚
+            </div>
+
+            <h3>Subject Management</h3>
+
+            <p>
+                Manage your subjects and topics in one
+                organized place.
+            </p>
+
+        </div>
+
+
+        <div class="feature-box">
+
+            <div class="feature-icon violet-icon">
+                👤
+            </div>
+
+            <h3>Student Dashboard</h3>
+
+            <p>
+                Get an overview of your plans, tasks,
+                reminders and progress.
+            </p>
+
+        </div>
+
+    </section>
+ 
+
+</div>

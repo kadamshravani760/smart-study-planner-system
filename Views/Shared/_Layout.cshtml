@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - SmartStudy Planner System</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="logo">
+
+                <span class="logo-icon">🎓</span>
+
+                <span>
+                    SmartStudy<span class="logo-highlight">Planner</span>System
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="nav-link">
+                    Home
+                </a>
+                <a asp-controller="Home"
+                   asp-action="AboutUs"
+                   class="nav-link">
+                    About Us
+                </a>
+                <a asp-controller="Home"
+                   asp-action="Features"
+                   class="nav-link">
+                    Features
+                </a>
+                @if (Context.Session.GetInt32("UserId") != null)
+                {
+                    <a asp-controller="Dashboard" asp-action="Index">
+                        Dashboard
+                    </a>
+
+                    <form asp-controller="Account"
+                          asp-action="Logout"
+                          method="post"
+                          class="logout-form">
+
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit" class="login-btn">
+                            Logout
+                        </button>
+
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account"
+                       asp-action="Login"
+                       class="login-btn">
+                        Login
+                    </a>
+
+                    <a asp-controller="Account"
+                       asp-action="Register"
+                       class="get-started-btn">
+                        Get Started <span>→</span>
+                    </a>
+                }
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+
+    <main>
+        @RenderBody()
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+                    🎓 SmartStudy<span>Planner</span>System
+                </div>
+
+                <p>
+                    Smart Study Planner helps students organize study plans,
+                    manage tasks, set reminders and track their progress.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Quick Links</h3>
+
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="Home" asp-action="About">About Us</a>
+                <a asp-controller="Home" asp-action="Features">Features</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Features</h3>
+
+                <span>📅 Study Planning</span>
+                <span>✅ Task Management</span>
+                <span>🔔 Smart Reminders</span>
+                <span>📊 Progress Tracking</span>
+                <span>📚 Subject Management</span>
+                <span>👤 Student Dashboard</span>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>System</h3>
+
+                <span>Smart Planning</span>
+                <span>Better Learning</span>
+                <span>Easy Management</span>
+                <span>Track Your Progress</span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

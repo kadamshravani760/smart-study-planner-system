@@ -1,0 +1,139 @@
+﻿@model SmartStudyPlannerSystem.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<div class="admin-login-page">
+
+    <div class="admin-login-card">
+
+        <div class="admin-login-icon">
+            🛡️
+        </div>
+
+        <div class="admin-login-heading">
+
+            <span>ADMIN ACCESS</span>
+
+            <h1>Admin Login</h1>
+
+            <p>
+                Sign in to access the administration panel.
+            </p>
+
+        </div>
+
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="admin-login-error">
+
+                <span>!</span>
+
+                <div asp-validation-summary="All"></div>
+
+            </div>
+        }
+
+
+        <form asp-controller="Account"
+              asp-action="AdminLogin"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+
+            <div class="admin-form-group">
+
+                <label asp-for="Email">
+                    Admin Email
+                </label>
+
+                <div class="admin-input-wrapper">
+
+                    <span>✉</span>
+
+                    <input asp-for="Email"
+                           type="email"
+                           placeholder="Enter admin email"
+                           autocomplete="username" />
+
+                </div>
+
+                <span asp-validation-for="Email"
+                      class="admin-validation">
+                </span>
+
+            </div>
+
+
+            <div class="admin-form-group">
+
+                <label asp-for="Password">
+                    Password
+                </label>
+
+                <div class="admin-input-wrapper">
+
+                    <span>🔒</span>
+
+                    <input asp-for="Password"
+                           type="password"
+                           placeholder="Enter admin password"
+                           autocomplete="current-password" />
+
+                </div>
+
+                <span asp-validation-for="Password"
+                      class="admin-validation">
+                </span>
+
+            </div>
+
+
+            <button type="submit"
+                    class="admin-login-submit">
+
+                <span>Sign In as Admin</span>
+
+                <span>→</span>
+
+            </button>
+
+        </form>
+
+
+        <div class="admin-login-divider">
+            <span>or</span>
+        </div>
+
+
+        <a asp-controller="Account"
+           asp-action="Login"
+           class="student-login-link">
+
+            👨‍🎓
+            <span>Student Login</span>
+
+        </a>
+
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="back-home-link">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,184 @@
+﻿@model SmartStudyPlannerSystem.Models.Task
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="form-page task-form-page">
+
+    <div class="form-card task-form-card">
+
+        <div class="form-header">
+
+            <div class="form-icon">
+                ✏️
+            </div>
+
+            <div>
+                <h1>Edit Task</h1>
+
+                <p>
+                    Update your task details, deadline, status and priority.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form asp-controller="Tasks"
+              asp-action="Edit"
+              asp-route-id="@Model.TaskId"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   asp-for="TaskId" />
+
+
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-summary"></div>
+
+
+            <div class="form-grid">
+
+                <!-- Task Title -->
+                <div class="form-group full-width">
+
+                    <label asp-for="TaskTitle">
+                        Task Title
+                    </label>
+
+                    <input asp-for="TaskTitle"
+                           class="form-control"
+                           placeholder="e.g. Complete Mathematics Assignment"
+                           autocomplete="off" />
+
+                    <span asp-validation-for="TaskTitle"
+                          class="field-error"></span>
+
+                </div>
+
+
+                <!-- Subject -->
+                <div class="form-group">
+
+                    <label asp-for="Subject">
+                        Subject
+                    </label>
+
+                    <input asp-for="Subject"
+                           class="form-control"
+                           placeholder="e.g. Mathematics"
+                           autocomplete="off" />
+
+                    <span asp-validation-for="Subject"
+                          class="field-error"></span>
+
+                </div>
+
+
+                <!-- Due Date -->
+                <div class="form-group">
+
+                    <label asp-for="DueDate">
+                        Due Date
+                    </label>
+
+                    <input asp-for="DueDate"
+                           class="form-control"
+                           type="date" />
+
+                    <span asp-validation-for="DueDate"
+                          class="field-error"></span>
+
+                </div>
+
+
+                <!-- Status -->
+                <div class="form-group">
+
+                    <label asp-for="Status">
+                        Status
+                    </label>
+
+                    <select asp-for="Status"
+                            class="form-control">
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                        <option value="Completed">
+                            Completed
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="Status"
+                          class="field-error"></span>
+
+                </div>
+
+
+                <!-- Priority -->
+                <div class="form-group">
+
+                    <label asp-for="Priority">
+                        Priority
+                    </label>
+
+                    <select asp-for="Priority"
+                            class="form-control">
+
+                        <option value="High">
+                            High
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="Priority"
+                          class="field-error"></span>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a asp-controller="Tasks"
+                   asp-action="Index"
+                   class="btn secondary-btn">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn primary-btn">
+                    ✓ Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<SmartStudyPlannerSystem.Models.StudyPlan>
+
+@{
+    ViewData["Title"] = "Study Plans Management";
+}
+
+<div class="admin-plans-page">
+
+    <!-- PAGE HEADER -->
+    <div class="admin-list-header">
+
+        <div>
+            <span class="admin-badge">STUDY PLAN MANAGEMENT</span>
+
+            <h1>All Study Plans</h1>
+
+            <p>
+                View study plans created by all students in the system.
+            </p>
+        </div>
+
+        <div class="student-count-box">
+            <strong>@Model.Count()</strong>
+
+            <span>
+                @(Model.Count() == 1 ? "Study Plan" : "Study Plans")
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- ERROR MESSAGE -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="admin-alert">
+            <span>!</span>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+
+    <!-- STUDY PLANS -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="admin-plans-grid">
+
+            @foreach (var plan in Model)
+            {
+                <article class="admin-plan-card">
+
+                    <!-- CARD TOP -->
+                    <div class="admin-plan-top">
+
+                        <div class="admin-plan-icon">
+                            📚
+                        </div>
+
+                        <span class="admin-user-badge">
+                            User #@plan.UserId
+                        </span>
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+                    <div class="admin-plan-content">
+
+                        <h2>
+                            @plan.Title
+                        </h2>
+
+
+                        <div class="admin-plan-subject">
+                            <span>📘</span>
+                            <span>@plan.Subject</span>
+                        </div>
+
+
+                        @if (!string.IsNullOrWhiteSpace(plan.Topic))
+                        {
+                            <div class="admin-plan-topic">
+                                <strong>Topic:</strong>
+                                @plan.Topic
+                            </div>
+                        }
+
+
+                        <div class="admin-plan-date">
+                            <span>📅</span>
+
+                            <span>
+                                @plan.StudyDate.ToString("dd MMM yyyy")
+                            </span>
+                        </div>
+
+
+                        @if (plan.StartTime.HasValue ||
+                             plan.EndTime.HasValue)
+                        {
+                            <div class="admin-plan-time">
+
+                                <span>⏰</span>
+
+                                <span>
+
+                                    @if (plan.StartTime.HasValue)
+                                    {
+                                        @plan.StartTime.Value.ToString(@"hh\:mm")
+                                    }
+
+                                    @if (plan.StartTime.HasValue &&
+                                         plan.EndTime.HasValue)
+                                    {
+                                        <span> – </span>
+                                    }
+
+                                    @if (plan.EndTime.HasValue)
+                                    {
+                                        @plan.EndTime.Value.ToString(@"hh\:mm")
+                                    }
+
+                                </span>
+
+                            </div>
+                        }
+
+
+                        @if (!string.IsNullOrWhiteSpace(plan.Description))
+                        {
+                            <p class="admin-plan-description">
+                                @plan.Description
+                            </p>
+                        }
+
+                    </div>
+
+
+                    <!-- FOOTER -->
+                    <div class="admin-plan-footer">
+
+                        <span>
+                            Created
+                            @plan.CreatedAt.ToString("dd MMM yyyy")
+                        </span>
+
+                        <span class="admin-plan-status">
+                            Active
+                        </span>
+
+                    </div>
+
+                </article>
+            }
+
+        </div>
+    }
+    else
+    {
+        <!-- EMPTY STATE -->
+
+        <div class="admin-empty-state">
+
+            <div class="admin-empty-icon">
+                📚
+            </div>
+
+            <h2>No Study Plans Found</h2>
+
+            <p>
+                There are currently no study plans created
+                by students in the system.
+            </p>
+
+        </div>
+    }
+
+</div>

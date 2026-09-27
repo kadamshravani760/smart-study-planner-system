@@ -1,0 +1,81 @@
+﻿@model SmartStudyPlannerSystem.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+
+        <div class="auth-icon">🎓</div>
+
+        <h1>Welcome Back</h1>
+
+        <p class="auth-subtitle">
+            Sign in to continue managing your study journey.
+        </p>
+
+        @if (TempData["Success"] is string success)
+        {
+            <div class="success-message">
+                @success
+            </div>
+        }
+
+        <form asp-controller="Account"
+              asp-action="Login"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-summary"></div>
+
+            <div class="form-group">
+                <label asp-for="Email">Email Address</label>
+
+                <input asp-for="Email"
+                       class="form-control"
+                       type="email"
+                       placeholder="Enter your email"
+                       autocomplete="email" />
+
+                <span asp-validation-for="Email"
+                      class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password">Password</label>
+
+                <input asp-for="Password"
+                       class="form-control"
+                       type="password"
+                       placeholder="Enter your password"
+                       autocomplete="current-password" />
+
+                <span asp-validation-for="Password"
+                      class="field-error"></span>
+            </div>
+
+            <button type="submit"
+                    class="btn auth-submit">
+                Sign In
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+            Don't have an account?
+
+            <a asp-controller="Account"
+               asp-action="Register">
+                Create Account
+            </a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
